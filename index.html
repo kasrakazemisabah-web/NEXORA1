@@ -1,0 +1,284 @@
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080b12">
+<meta name="description" content="NEXORA؛ دنیای معرفی بازی‌های کامپیوتری">
+<title>NEXORA | دنیای بازی‌ها</title>
+<style>
+:root {
+  --bg:#080b12;
+  --panel:#111725;
+  --cyan:#00f5d4;
+  --purple:#a855f7;
+  --text:#f3f5ff;
+  --muted:#9ca7bd;
+}
+* { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+body {
+  background:var(--bg);
+  color:var(--text);
+  font-family:Tahoma,Arial,sans-serif;
+  line-height:1.8;
+}
+a { color:inherit; text-decoration:none; }
+.container { width:min(1100px,90%); margin:auto; }
+header {
+  position:sticky; top:0; z-index:10;
+  background:#080b12ed;
+  border-bottom:1px solid #20283a;
+  backdrop-filter:blur(12px);
+}
+nav {
+  min-height:75px; display:flex;
+  justify-content:space-between; align-items:center; gap:20px;
+}
+.logo { font-size:27px; font-weight:900; letter-spacing:2px; }
+.logo span { color:var(--cyan); text-shadow:0 0 18px var(--cyan); }
+.nav-links { display:flex; gap:24px; color:var(--muted); }
+.nav-links a:hover { color:var(--cyan); }
+.hero {
+  min-height:430px; display:flex; flex-direction:column;
+  justify-content:center; align-items:flex-start; padding:60px 0;
+  background:
+    radial-gradient(ellipse at 15% 45%,#4c1d9560,transparent 45%),
+    radial-gradient(ellipse at 85% 20%,#00f5d420,transparent 35%);
+}
+.tag {
+  color:var(--cyan); border:1px solid #00f5d455;
+  background:#00f5d40c; padding:5px 13px;
+  border-radius:30px; margin-bottom:18px; font-size:13px;
+}
+h1 { font-size:clamp(34px,6vw,62px); line-height:1.5; margin-bottom:14px; }
+.accent { color:var(--cyan); text-shadow:0 0 25px #00f5d455; }
+.hero p { color:var(--muted); max-width:580px; margin-bottom:26px; }
+.button {
+  display:inline-block; padding:11px 24px; border-radius:9px;
+  background:var(--cyan); color:#06110f; font-weight:bold;
+  transition:.2s;
+}
+.button:hover { transform:translateY(-3px); box-shadow:0 0 25px #00f5d455; }
+section { padding:42px 0; }
+.section-heading { margin-bottom:22px; }
+.section-heading h2 { font-size:27px; }
+.section-heading p { color:var(--muted); font-size:14px; }
+.toolbar { display:flex; flex-wrap:wrap; gap:12px; margin-bottom:25px; }
+#search {
+  flex:1; min-width:210px; padding:13px 15px; border-radius:10px;
+  border:1px solid #293247; outline:none; color:white;
+  background:var(--panel); font:inherit;
+}
+#search:focus { border-color:var(--cyan); }
+.filters { display:flex; flex-wrap:wrap; gap:8px; }
+.filter {
+  padding:9px 14px; color:var(--muted); background:var(--panel);
+  border:1px solid #293247; border-radius:9px; cursor:pointer;
+  font:inherit;
+}
+.filter.active,.filter:hover { color:var(--cyan); border-color:var(--cyan); }
+.games-grid {
+  display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px;
+}
+.game-card {
+  overflow:hidden; border:1px solid #222b3e;
+  background:var(--panel); border-radius:15px; transition:.25s;
+}
+.game-card:hover {
+  transform:translateY(-5px); border-color:var(--cyan);
+  box-shadow:0 10px 35px #00f5d40d;
+}
+.cover {
+  height:175px; display:flex; align-items:center; justify-content:center;
+  position:relative; overflow:hidden; font-size:25px; font-weight:900;
+  letter-spacing:2px;
+  background:
+    radial-gradient(circle at 70% 30%,var(--glow),transparent 35%),
+    linear-gradient(135deg,var(--shade),#0b1020 80%);
+}
+.cover:before,.cover:after {
+  content:""; position:absolute; width:160px; height:160px;
+  border:1px solid var(--glow); transform:rotate(35deg); opacity:.35;
+}
+.cover:after { width:110px; height:110px; transform:rotate(60deg); }
+.cover span { position:relative; z-index:1; text-shadow:0 0 22px var(--glow); }
+.game-info { padding:17px; }
+.game-info h3 { margin-bottom:7px; font-size:18px; }
+.game-info p { color:var(--muted); font-size:13px; min-height:48px; }
+.game-meta {
+  display:flex; justify-content:space-between; align-items:center;
+  margin-top:14px; gap:8px;
+}
+.category {
+  font-size:12px; color:var(--cyan); background:#00f5d411;
+  padding:4px 9px; border-radius:20px;
+}
+.game-link { font-size:13px; color:#c4b5fd; }
+.game-link:hover { color:var(--cyan); }
+.empty {
+  display:none; color:var(--muted); text-align:center;
+  padding:35px; grid-column:1/-1;
+}
+.about-box {
+  background:linear-gradient(135deg,#111725,#151126);
+  border:1px solid #293247; padding:28px; border-radius:15px;
+}
+.about-box p { color:var(--muted); margin-top:8px; }
+footer {
+  border-top:1px solid #20283a; margin-top:35px;
+  padding:25px 0; color:var(--muted); text-align:center; font-size:13px;
+}
+@media(max-width:800px) {
+  .games-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .nav-links { gap:12px; font-size:13px; }
+}
+@media(max-width:520px) {
+  nav { flex-direction:column; justify-content:center; padding:12px 0; gap:5px; }
+  .hero { min-height:350px; }
+  .games-grid { grid-template-columns:1fr; }
+  .cover { height:190px; }
+  .section-heading h2 { font-size:23px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="container">
+    <a class="logo" href="#home">NEXO<span>RA</span></a>
+    <div class="nav-links">
+      <a href="#home">خانه</a>
+      <a href="#games">بازی‌ها</a>
+      <a href="#about">درباره ما</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+<section class="hero container" id="home">
+  <span class="tag">دنیای بازی‌های ویدیویی</span>
+  <h1>بازی بعدی‌ات رو<br><span class="accent">اینجا پیدا کن.</span></h1>
+  <p>به NEXORA خوش اومدی! بازی‌های جذاب رو کشف کن، با سبک‌هاشون آشنا شو و ماجراجویی بعدی خودت رو انتخاب کن.</p>
+  <a class="button" href="#games">کشف بازی‌ها ←</a>
+</section>
+
+<section class="container" id="games">
+  <div class="section-heading">
+    <h2>🎮 دنیای بازی‌ها</h2>
+    <p>بازی مورد علاقه‌ات رو پیدا کن.</p>
+  </div>
+  <div class="toolbar">
+    <input id="search" type="search" placeholder="🔎 اسم بازی رو بنویس..." aria-label="جست‌وجوی بازی">
+    <div class="filters" id="filters">
+      <button class="filter active" data-filter="all">همه</button>
+      <button class="filter" data-filter="action">اکشن</button>
+      <button class="filter" data-filter="open">جهان‌باز</button>
+      <button class="filter" data-filter="adventure">ماجراجویی</button>
+      <button class="filter" data-filter="competitive">رقابتی</button>
+    </div>
+  </div>
+
+  <div class="games-grid" id="gamesGrid">
+    <article class="game-card" data-name="gta v grand theft auto" data-category="open action">
+      <div class="cover" style="--glow:#f97316;--shade:#451a03"><span>GTA V</span></div>
+      <div class="game-info"><h3>Grand Theft Auto V</h3><p>در شهر لوس سانتوس، دنیایی بزرگ از مأموریت‌ها و ماجراجویی منتظر توست.</p><div class="game-meta"><span class="category">جهان‌باز</span><a class="game-link" href="https://store.steampowered.com/app/271590/" target="_blank" rel="noopener noreferrer">مشاهده بازی ↗</a></div></div>
+    </article>
+
+    <article class="game-card" data-name="red dead redemption 2 rdr2" data-category="open adventure">
+      <div class="cover" style="--glow:#dc2626;--shade:#450a0a"><span>RDR 2</span></div>
+      <div class="game-info"><h3>Red Dead Redemption 2</h3><p>سفر به غرب وحشی با داستانی عمیق و جهانی پر از جزئیات.</p><div class="game-meta"><span class="category">ماجراجویی</span><a class="game-link" href="https://store.steampowered.com/app/1174180/" target="_blank" rel="noopener noreferrer">مشاهده بازی ↗</a></div></div>
+    </article>
+
+    <article class="game-card" data-name="cyberpunk 2077" data-category="open action">
+      <div class="cover" style="--glow:#facc15;--shade:#422006"><span>CYBERPUNK</span></div>
+      <div class="game-info"><h3>Cyberpunk 2077</h3><p>در شهر آینده‌نگر نایت سیتی، مسیر خودت رو بساز.</p><div class="game-meta"><span class="category">جهان‌باز</span><a class="game-link" href="https://store.steampowered.com/app/1091500/" target="_blank" rel="noopener noreferrer">مشاهده بازی ↗</a></div></div>
+    </article>
+
+    <article class="game-card" data-name="elden ring" data-category="action adventure">
+      <div class="cover" style="--glow:#fbbf24;--shade:#292524"><span>ELDEN RING</span></div>
+      <div class="game-info"><h3>Elden Ring</h3><p>جهانی رازآلود، باس‌های قدرتمند و نبردهایی چالش‌برانگیز.</p><div class="game-meta"><span class="category">اکشن</span><a class="game-link" href="https://store.steampowered.com/app/1245620/" target="_blank" rel="noopener noreferrer">مشاهده بازی ↗</a></div></div>
+    </article>
+
+    <article class="game-card" data-name="minecraft" data-category="open adventure">
+      <div class="cover" style="--glow:#4ade80;--shade:#14532d"><span>MINECRAFT</span></div>
+      <div class="game-info"><h3>Minecraft</h3><p>بساز، کاوش کن و در دنیایی بلوکی ماجراجویی کن.</p><div class="game-meta"><span class="category">جهان‌باز</span><a class="game-link" href="https://www.minecraft.net/" target="_blank" rel="noopener noreferrer">مشاهده بازی ↗</a></div></div>
+    </article>
+
+    <article class="game-card" data-name="counter strike 2 cs2" data-category="competitive action">
+      <div class="cover" style="--glow:#fb923c;--shade:#431407"><span>CS2</span></div>
+      <div class="game-info"><h3>Counter-Strike 2</h3><p>نبردهای تاکتیکی و رقابت تیمی در یکی از محبوب‌ترین شوترها.</p><div class="game-meta"><span class="category">رقابتی</span><a class="game-link" href="https://store.steampowered.com/app/730/" target="_blank" rel="noopener noreferrer">مشاهده بازی ↗</a></div></div>
+    </article>
+
+    <article class="game-card" data-name="valorant" data-category="competitive action">
+      <div class="cover" style="--glow:#fb7185;--shade:#4c0519"><span>VALORANT</span></div>
+      <div class="game-info"><h3>Valorant</h3><p>ترکیب تیراندازی دقیق و توانایی‌های ویژه در رقابت‌های تیمی.</p><div class="game-meta"><span class="category">رقابتی</span><a class="game-link" href="https://playvalorant.com/" target="_blank" rel="noopener noreferrer">مشاهده بازی ↗</a></div></div>
+    </article>
+
+    <article class="game-card" data-name="forza horizon 5" data-category="open adventure">
+      <div class="cover" style="--glow:#22d3ee;--shade:#164e63"><span>FORZA 5</span></div>
+      <div class="game-info"><h3>Forza Horizon 5</h3><p>رانندگی آزاد و مسابقه در مناظر زیبای مکزیک.</p><div class="game-meta"><span class="category">جهان‌باز</span><a class="game-link" href="https://store.steampowered.com/app/1551360/" target="_blank" rel="noopener noreferrer">مشاهده بازی ↗</a></div></div>
+    </article>
+
+    <article class="game-card" data-name="the witcher 3 wild hunt" data-category="open adventure">
+      <div class="cover" style="--glow:#c084fc;--shade:#3b0764"><span>THE WITCHER</span></div>
+      <div class="game-info"><h3>The Witcher 3</h3><p>در نقش گرالت، هیولاها را شکار کن و داستان خودت را بساز.</p><div class="game-meta"><span class="category">ماجراجویی</span><a class="game-link" href="https://store.steampowered.com/app/292030/" target="_blank" rel="noopener noreferrer">مشاهده بازی ↗</a></div></div>
+    </article>
+  </div>
+  <p class="empty" id="empty">بازی‌ای پیدا نشد! عبارت دیگری رو امتحان کن.</p>
+</section>
+
+<section class="container" id="about">
+  <div class="about-box">
+    <h2>درباره <span class="accent">NEXORA</span></h2>
+    <p>NEXORA یک پروژه برای معرفی بازی‌های ویدیویی، کشف سبک‌های مختلف و پیدا کردن ماجراجویی بعدی گیمرهاست.</p>
+    <p>طراح و سازنده: <strong style="color:var(--cyan)">Kasra Kazemi</strong></p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container">© 2026 NEXORA — ساخته‌شده با ❤️ برای گیمرها</div>
+</footer>
+
+<script>
+const search = document.getElementById("search");
+const cards = [...document.querySelectorAll(".game-card")];
+const filters = [...document.querySelectorAll(".filter")];
+const empty = document.getElementById("empty");
+let currentFilter = "all";
+
+function filterGames() {
+  const query = search.value.trim().toLowerCase();
+  let visible = 0;
+
+  cards.forEach(card => {
+    const name = card.dataset.name.toLowerCase();
+    const category = card.dataset.category.split(" ");
+    const matchesSearch = name.includes(query) ||
+      card.querySelector("h3").textContent.toLowerCase().includes(query);
+    const matchesFilter = currentFilter === "all" ||
+      category.includes(currentFilter);
+
+    const show = matchesSearch && matchesFilter;
+    card.style.display = show ? "" : "none";
+    if (show) visible++;
+  });
+
+  empty.style.display = visible ? "none" : "block";
+}
+
+search.addEventListener("input", filterGames);
+
+filters.forEach(button => {
+  button.addEventListener("click", () => {
+    currentFilter = button.dataset.filter;
+    filters.forEach(item => item.classList.remove("active"));
+    button.classList.add("active");
+    filterGames();
+  });
+});
+</script>
+</body>
+</html>
