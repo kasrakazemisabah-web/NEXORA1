@@ -1,0 +1,175 @@
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXORA | Gaming World</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#080811;color:#fff;font-family:Tahoma,Arial,sans-serif}
+header{background:#11101d;padding:20px 6%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px;border-bottom:1px solid #332348}
+.logo{font-size:30px;color:#bd70ff;font-weight:bold;letter-spacing:2px}
+nav a{color:#fff;text-decoration:none;margin:10px}
+nav a:hover{color:#bd70ff}
+.hero{text-align:center;padding:85px 15px;background:radial-gradient(circle,#392054,#080811 70%)}
+.hero h1{font-size:42px;margin-bottom:20px}
+.hero h1 span{color:#bb66ff}
+.hero p{color:#ccc;line-height:2}
+.hero button{margin-top:25px;padding:14px 28px;background:#963ee4;color:#fff;border:0;border-radius:8px;cursor:pointer}
+.container{width:92%;max-width:1250px;margin:45px auto}
+h2{border-right:4px solid #b65cff;padding-right:12px;margin-bottom:25px}
+.search{width:100%;padding:16px;background:#171526;border:1px solid #423454;color:white;border-radius:9px;margin-bottom:20px;font-size:15px}
+.filters{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:25px}
+.filters button{padding:10px 17px;background:#1c192a;color:white;border:1px solid #443553;border-radius:7px;cursor:pointer}
+.filters button.active,.filters button:hover{background:#913bd7}
+.games{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.game{background:#171525;border:1px solid #30263f;border-radius:12px;overflow:hidden;transition:.3s}
+.game:hover{transform:translateY(-6px);border-color:#b65cff;box-shadow:0 5px 25px #a855f733}
+.game img{width:100%;height:150px;object-fit:cover;background:#252033}
+.info{padding:15px}
+.info h3{margin-bottom:12px;font-size:16px}
+.info small{color:#c084fc}
+.info p{color:#aaa;font-size:12px;margin-top:10px}
+.info a{display:block;text-align:center;background:#8134bd;color:white;text-decoration:none;padding:11px;margin-top:15px;border-radius:7px}
+.info a:hover{background:#aa54ee}
+.empty{text-align:center;color:#aaa;padding:40px;display:none}
+footer{text-align:center;background:#11101d;padding:35px;color:#aaa;line-height:2;margin-top:60px}
+footer span{color:#bb66ff}
+@media(max-width:600px){.hero h1{font-size:29px}header{justify-content:center}nav{text-align:center}}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="logo">NEXORA</div>
+ <nav>
+  <a href="#">خانه</a>
+  <a href="#games">بازی‌ها</a>
+  <a href="#about">درباره ما</a>
+ </nav>
+</header>
+
+<section class="hero">
+ <h1>WELCOME TO <span>NEXORA</span></h1>
+ <p>دنیای بازی‌های کامپیوتر و کنسول در یک جا 🎮</p>
+ <button onclick="document.getElementById('games').scrollIntoView({behavior:'smooth'})">مشاهده بازی‌ها</button>
+</section>
+
+<main class="container" id="games">
+ <h2>🎮 آرشیو ۳۰ بازی برتر</h2>
+ <input class="search" id="search" placeholder="جستجوی بازی..." oninput="renderGames()">
+
+ <div class="filters">
+  <button class="active" onclick="setFilter('همه',this)">همه</button>
+  <button onclick="setFilter('اکشن',this)">اکشن</button>
+  <button onclick="setFilter('ترسناک',this)">ترسناک</button>
+  <button onclick="setFilter('ماجراجویی',this)">ماجراجویی</button>
+  <button onclick="setFilter('ورزشی',this)">ورزشی</button>
+  <button onclick="setFilter('آنلاین',this)">آنلاین</button>
+ </div>
+
+ <div class="games" id="gamesList"></div>
+ <div class="empty" id="empty">بازی مورد نظر پیدا نشد!</div>
+</main>
+
+<footer id="about">
+ <h2 style="border:0;padding:0">درباره NEXORA</h2>
+ <p>ساخته شده با عشق به دنیای گیم 🎮</p>
+ <p>Developer: <span>Kasra Kazemi</span></p>
+ <p>© 2026 NEXORA - All Rights Reserved</p>
+</footer>
+
+<script>
+const games=[
+["Grand Theft Auto V","اکشن",271590],
+["Red Dead Redemption 2","ماجراجویی",1174180],
+["Cyberpunk 2077","اکشن",1091500],
+["The Witcher 3","ماجراجویی",292030],
+["Resident Evil 4","ترسناک",2050650],
+["Resident Evil Village","ترسناک",1196590],
+["Dying Light","ترسناک",239140],
+["Dying Light 2","ترسناک",534380],
+["Phasmophobia","ترسناک",739630],
+["Outlast","ترسناک",238320],
+["Outlast 2","ترسناک",414700],
+["Amnesia: The Dark Descent","ترسناک",57300],
+["Elden Ring","اکشن",1245620],
+["Dark Souls III","اکشن",374320],
+["God of War","اکشن",1593500],
+["Marvel's Spider-Man Remastered","اکشن",1817070],
+["Hogwarts Legacy","ماجراجویی",990080],
+["Assassin's Creed Valhalla","ماجراجویی",2208920],
+["Forza Horizon 5","ورزشی",1551360],
+["EA SPORTS FC 25","ورزشی",2669320],
+["FIFA 23","ورزشی",1811260],
+["NBA 2K25","ورزشی",2878980],
+["Minecraft","ماجراجویی",1672970],
+["Terraria","ماجراجویی",105600],
+["Counter-Strike 2","آنلاین",730],
+["PUBG: Battlegrounds","آنلاین",578080],
+["Apex Legends","آنلاین",1172470],
+["Rust","آنلاین",252490],
+["Dota 2","آنلاین",570],
+["Left 4 Dead 2","ترسناک",550]
+];
+
+let filter="همه";
+
+function renderGames(){
+ const search=document.getElementById("search").value.toLowerCase();
+ const list=document.getElementById("gamesList");
+ list.innerHTML="";
+
+ const filtered=games.filter(g=>
+  (filter==="همه"||g[1]===filter)&&
+  g[0].toLowerCase().includes(search)
+ );
+
+ document.getElementById("empty").style.display=filtered.length?"none":"block";
+
+ filtered.forEach(g=>{
+  const card=document.createElement("article");
+  card.className="game";
+
+  const img=document.createElement("img");
+  img.src="https://cdn.cloudflare.steamstatic.com/steam/apps/"+g[2]+"/header.jpg";
+  img.alt=g[0];
+  img.loading="lazy";
+  img.onerror=()=>{img.style.display="none"};
+
+  const info=document.createElement("div");
+  info.className="info";
+
+  const title=document.createElement("h3");
+  title.textContent=g[0];
+
+  const category=document.createElement("small");
+  category.textContent="🎮 "+g[1];
+
+  const desc=document.createElement("p");
+  desc.textContent="معرفی و مشاهده اطلاعات بازی";
+
+  const link=document.createElement("a");
+  link.href="https://store.steampowered.com/app/"+g[2]+"/";
+  link.target="_blank";
+  link.rel="noopener noreferrer";
+  link.textContent="مشاهده بازی";
+
+  info.append(title,category,desc,link);
+  card.append(img,info);
+  list.appendChild(card);
+ });
+}
+
+function setFilter(value,button){
+ filter=value;
+ document.querySelectorAll(".filters button").forEach(b=>b.classList.remove("active"));
+ button.classList.add("active");
+ renderGames();
+}
+
+renderGames();
+</script>
+</body>
+</html>
